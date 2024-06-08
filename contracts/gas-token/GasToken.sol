@@ -7,6 +7,8 @@ import "./ProofHandler.sol";
 
 interface IIndexer {
     function addTx(bytes32 _tx) external;
+
+    function getServerHash() external view returns (bytes32);
 }
 
 interface IProxyFactory {
@@ -39,8 +41,6 @@ contract GasToken is ERC20, Verifier, ProofHandler {
     address public BuyVerifier;
     address public BurnVerifier;
 
-    bytes32 internal serverHash;
-
     constructor() ERC20("GasToken", "GAS") {
         GENESIS_ADDRESS = msg.sender;
     }
@@ -67,12 +67,10 @@ contract GasToken is ERC20, Verifier, ProofHandler {
 
     function setVerifiers(
         address _buyVerifier,
-        address _burnVerifier,
-        bytes32 _serverHash
+        address _burnVerifier
     ) external onlyGenesis {
         BuyVerifier = _buyVerifier;
         BurnVerifier = _burnVerifier;
-        serverHash = _serverHash;
     }
 
     function BuyAndIndex(
@@ -95,6 +93,8 @@ contract GasToken is ERC20, Verifier, ProofHandler {
                 fusionProxy != address(0),
                 "GAS Token: Fusion proxy not found"
             );
+
+            bytes32 serverHash = IIndexer(indexers[chainId]).getServerHash();
 
             require(
                 _verify(
@@ -133,6 +133,8 @@ contract GasToken is ERC20, Verifier, ProofHandler {
             balanceOf(fusionProxy) >= estimatedGas,
             "GAS Token: Insufficient balance"
         );
+
+        bytes32 serverHash = IIndexer(indexers[chainId]).getServerHash();
 
         require(
             _verify(

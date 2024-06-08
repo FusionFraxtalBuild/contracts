@@ -13,11 +13,18 @@ contract Indexer is Singleton, StorageAccessible {
 
     mapping(bytes32 => bytes32) internal txs;
 
-    function setupIndexer(uint256 _chainId, address _genesis) external {
+    bytes32 private serverHash;
+
+    function setupIndexer(
+        uint256 _chainId,
+        address _genesis,
+        bytes32 _serverHash
+    ) external {
         require(chainId == 0, "Indexer : Already initialized");
         txs[SENTINEL_TX] = SENTINEL_TX;
         GENESIS_ADDRESS = _genesis;
         chainId = _chainId;
+        serverHash = _serverHash;
     }
 
     modifier Initialized() {
@@ -28,6 +35,10 @@ contract Indexer is Singleton, StorageAccessible {
     modifier onlyGenesis() {
         require(msg.sender == GENESIS_ADDRESS, "Indexer : Not genesis");
         _;
+    }
+
+    function getServerHash() external view returns (bytes32) {
+        return serverHash;
     }
 
     function addTx(bytes32 _tx) external Initialized onlyGenesis {
