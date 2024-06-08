@@ -4,6 +4,7 @@ pragma solidity >=0.7.0 <0.9.0;
 
 import {Context} from "./Context.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {IERC20Metadata} from "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import "../base/LogManager.sol";
 
 abstract contract Fusion2771Context is Context, LogManager {
@@ -34,7 +35,7 @@ abstract contract Fusion2771Context is Context, LogManager {
         uint256 gasFee = (gasUsed + baseGas) * gasPrice;
 
         if (token != address(0)) {
-            uint8 decimals = IERC20(token).decimals();
+            uint8 decimals = IERC20Metadata(token).decimals();
             try
                 IERC20(token).transfer(GasTank, gasFee / 10 ** (18 - decimals))
             {} catch {
