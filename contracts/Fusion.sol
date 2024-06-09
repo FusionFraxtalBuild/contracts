@@ -8,6 +8,7 @@ import "./base/ProofManager.sol";
 import "./handler/TokenCallbackHandler.sol";
 import "./external/Fusion2771Context.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/interfaces/IERC20Metadata.sol";
 import "./base/LogManager.sol";
 
 contract Fusion is
@@ -336,7 +337,7 @@ contract Fusion is
         uint256 estimatedFees
     ) internal view returns (bool) {
         if (token != address(0)) {
-            uint8 decimals = IERC20(token).decimals();
+            uint8 decimals = IERC20Metadata(token).decimals();
             if (
                 IERC20(token).balanceOf(address(this)) <
                 estimatedFees / 10 ** (18 - decimals)
