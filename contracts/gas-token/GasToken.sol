@@ -4,6 +4,7 @@ pragma solidity >=0.7.0 <0.9.0;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "../base/Verifier.sol";
 import "./ProofHandler.sol";
+import "../libraries/Conversion.sol";
 
 interface IIndexer {
     function addTx(bytes32 _tx) external;
@@ -172,12 +173,16 @@ contract GasToken is ERC20, Verifier, ProofHandler {
 
         // Use scope here to limit variable lifetime and prevent `stack too deep` errors
         {
-            publicInputs = new bytes32[](4);
+            publicInputs = new bytes32[](36);
             publicInputs[0] = _serverHash;
             publicInputs[1] = bytes32(uint256(uint32(_domain)));
             publicInputs[2] = bytes32(chainId);
-            publicInputs[3] = _txHash;
-            publicInputs[4] = bytes32(_amount);
+            for (uint256 i = 3; i < 35; i++) {
+                publicInputs[i] = Conversion.convertToPaddedByte32(
+                    _txHash[i - 3]
+                );
+            }
+            publicInputs[35] = bytes32(_amount);
         }
 
         return verifyProof(_proof, publicInputs, _verifier);

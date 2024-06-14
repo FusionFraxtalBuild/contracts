@@ -11,9 +11,7 @@ async function main() {
 
   console.log("Deploying contracts with the account:", deployer.address);
 
-  const contract = await hre.ethers.deployContract("IndexerProxyFactory", [
-    "0x231df6781EFC5A3AD7f00F3569ED2CF721FF73DC",
-  ]);
+  const contract = await hre.ethers.deployContract("GasToken", []);
 
   console.log("Contract address:", await contract.getAddress());
 }
