@@ -58,8 +58,8 @@ module.exports = {
       url: "https://api.avax-test.network/ext/bc/C/rpc",
       accounts: [PRIVATE_KEY],
     },
-    fusion: {
-      url: "https://subnets.avacloud.io/ae23139b-5e99-418c-bdd5-95aab29b9f1b",
+    fraxtal: {
+      url: "https://rpc.frax.com",
       accounts: [PRIVATE_KEY],
     },
   },
@@ -73,6 +73,7 @@ module.exports = {
       mode: "your API key",
       amoy: "B66XTC9JBFDKZDANXSVSYK91INPIFW7KT5",
       fuji: "your API key",
+      Fraxtal: "VEFPEUSAVJHK9NGP52KU69AUFJ4YKIS44X",
     },
     customChains: [
       {
@@ -138,6 +139,14 @@ module.exports = {
           apiURL:
             "https://api.routescan.io/v2/network/testnet/evm/43113/etherscan",
           browserURL: "https://c-chain.snowtrace.io",
+        },
+      },
+      {
+        network: "Fraxtal",
+        chainId: 252,
+        urls: {
+          apiURL: "https://api.fraxscan.com/api",
+          browserURL: "https://fraxscan.com/",
         },
       },
     ],
