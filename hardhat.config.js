@@ -62,6 +62,18 @@ module.exports = {
       url: "https://rpc.frax.com",
       accounts: [PRIVATE_KEY],
     },
+    moonbeam: {
+      url: "https://moonbeam-rpc.publicnode.com",
+      accounts: [PRIVATE_KEY],
+    },
+    astar: {
+      url: "https://1rpc.io/astr",
+      accounts: [PRIVATE_KEY],
+    },
+    campus: {
+      url: "https://rpc.open-campus-codex.gelato.digital",
+      accounts: [PRIVATE_KEY],
+    },
   },
   etherscan: {
     apiKey: {
@@ -74,6 +86,9 @@ module.exports = {
       amoy: "B66XTC9JBFDKZDANXSVSYK91INPIFW7KT5",
       fuji: "your API key",
       Fraxtal: "VEFPEUSAVJHK9NGP52KU69AUFJ4YKIS44X",
+      moonbeam: "HV1RAP2QJVSE1HUZK63PG31C7EIJINYJA4",
+      astar: "your API key",
+      campus: "your API key",
     },
     customChains: [
       {
@@ -147,6 +162,30 @@ module.exports = {
         urls: {
           apiURL: "https://api.fraxscan.com/api",
           browserURL: "https://fraxscan.com/",
+        },
+      },
+      {
+        network: "moonbeam",
+        chainId: 1284,
+        urls: {
+          apiURL: "https://api-moonbeam.moonscan.io/api",
+          browserURL: "https://moonbeam.moonscan.io/",
+        },
+      },
+      {
+        network: "astar",
+        chainId: 592,
+        urls: {
+          apiURL: "https://astar.blockscout.com/api",
+          browserURL: "https://astar.blockscout.com/",
+        },
+      },
+      {
+        network: "campus",
+        chainId: 656476,
+        urls: {
+          apiURL: "https://opencampus-codex.blockscout.com/api",
+          browserURL: "https://opencampus-codex.blockscout.com/",
         },
       },
     ],
